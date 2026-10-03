@@ -1,0 +1,458 @@
+/**
+ * Instances: the top-bar pill, the instance grid, the hero selector and the
+ * create/edit dialog. Split from views.css so the multi-instance surface stays
+ * readable on its own.
+ */
+
+/* ------------------------------------------------------------- primitives */
+
+.muted {
+  color: var(--text-3);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field__row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.field__row .input {
+  flex: 1;
+}
+
+.field__hint {
+  margin-left: 4px;
+  font-weight: 400;
+  color: var(--text-3);
+}
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 9px 11px;
+  border: 1px solid var(--bg-3);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-2);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.notice code {
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: var(--bg-2);
+  font-size: 11px;
+}
+
+.notice--muted {
+  color: var(--text-3);
+}
+
+.notice--warn {
+  border-color: rgba(255, 171, 94, 0.35);
+  background: rgba(255, 171, 94, 0.08);
+  color: #ffc98f;
+}
+
+.notice--warn svg {
+  flex: none;
+  margin-top: 1px;
+}
+
+.notice--error {
+  border-color: rgba(255, 107, 107, 0.4);
+  background: rgba(255, 107, 107, 0.1);
+  color: #ff9d9d;
+}
+
+.tag {
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tag--accent {
+  background: rgba(78, 200, 255, 0.14);
+  color: var(--accent);
+}
+
+.tag--live {
+  background: rgba(46, 204, 113, 0.15);
+  color: #4ade80;
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.btn--danger {
+  border-color: rgba(255, 107, 107, 0.4);
+  background: rgba(255, 107, 107, 0.14);
+  color: #ff9d9d;
+}
+
+.btn--danger:hover:not(:disabled) {
+  border-color: rgba(255, 107, 107, 0.6);
+  background: rgba(255, 107, 107, 0.22);
+}
+
+.icon-btn:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+
+.loader-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.loader-chip {
+  padding: 6px 12px;
+  border: 1px solid var(--bg-3);
+  border-radius: 9px;
+  background: var(--bg-1);
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.14s ease, background 0.14s ease, color 0.14s ease;
+}
+
+.loader-chip:hover {
+  border-color: var(--text-3);
+  color: var(--text);
+}
+
+.loader-chip--active {
+  border-color: var(--accent);
+  background: rgba(78, 200, 255, 0.14);
+  color: var(--accent);
+}
+
+/* ----------------------------------------------------------------- glyph */
+
+.instance-glyph {
+  flex: none;
+  border-radius: 9px;
+  object-fit: cover;
+  background: var(--bg-2);
+}
+
+.instance-glyph--auto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #04121c;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* ------------------------------------------------------------ top-bar pill */
+
+.instance-pill {
+  position: relative;
+}
+
+.instance-pill__btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 30px;
+  padding: 0 9px 0 6px;
+  border: 1px solid var(--bg-3);
+  border-radius: 999px;
+  background: var(--bg-2);
+  color: var(--text-2);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.14s ease, background 0.14s ease;
+}
+
+.instance-pill__btn:hover {
+  border-color: var(--text-3);
+  background: var(--bg-3);
+}
+
+.instance-pill__name {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.instance-menu {
+  min-width: 250px;
+}
+
+.instance-menu__item {
+  width: 100%;
+}
+
+@media (max-width: 1080px) {
+  .instance-pill__name {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------ hero selector */
+
+.hero-instance {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.hero-instance__btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 280px;
+  padding: 5px 10px 5px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(10, 12, 16, 0.62);
+  backdrop-filter: blur(14px);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.14s ease, background 0.14s ease;
+}
+
+.hero-instance__btn:hover,
+.hero-instance__btn--open {
+  border-color: rgba(78, 200, 255, 0.45);
+  background: rgba(14, 18, 24, 0.8);
+}
+
+.hero-instance__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.hero-instance__name {
+  max-width: 170px;
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hero-instance__sub {
+  color: var(--text-3);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+}
+
+.hero-instance__menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  z-index: 40;
+  width: 300px;
+  transform: translateX(-50%);
+  padding: 6px;
+  border: 1px solid var(--bg-3);
+  border-radius: 12px;
+  background: rgba(15, 17, 22, 0.97);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+
+.hero-instance__label {
+  padding: 5px 8px 6px;
+  color: var(--text-3);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.hero-instance__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.hero-instance__item:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.hero-instance__item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hero-instance__item--active {
+  background: rgba(78, 200, 255, 0.1);
+}
+
+.hero-instance__item--action {
+  color: var(--text-2);
+}
+
+.hero-instance__divider {
+  height: 1px;
+  margin: 5px 8px;
+  background: var(--bg-3);
+}
+
+.hero-instance__warn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 420px;
+  margin: 10px auto 0;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 171, 94, 0.28);
+  border-radius: 10px;
+  background: rgba(255, 171, 94, 0.08);
+  color: #ffc98f;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.hero-instance__warn > svg {
+  flex: none;
+}
+
+.hero-instance__warn .text-btn {
+  flex: none;
+  color: #ffc98f;
+}
+
+/* ------------------------------------------------------------ instance grid */
+
+.view__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.instance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+  gap: 14px;
+}
+
+.instance-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--bg-3);
+  border-radius: 14px;
+  background: var(--bg-1);
+  transition: border-color 0.14s ease, transform 0.14s ease;
+}
+
+.instance-card:hover {
+  border-color: var(--text-3);
+  transform: translateY(-1px);
+}
+
+.instance-card--active {
+  border-color: rgba(78, 200, 255, 0.45);
+  background: linear-gradient(180deg, rgba(78, 200, 255, 0.06), var(--bg-1) 60%);
+}
+
+.instance-card--running {
+  border-color: rgba(46, 204, 113, 0.45);
+}
+
+.instance-card__head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.instance-card__titles {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.instance-card__name {
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.instance-card__sub {
+  color: var(--text-3);
+  font-size: 11.5px;
+}
+
+.instance-card__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 12px;
+  margin: 0;
+  padding: 10px 0;
+  border-top: 1px solid var(--bg-3);
+  border-bottom: 1px solid var(--bg-3);
+}
+
+.instance-card__meta dt {
+  color: var(--text-3);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.instance-card__meta dd {
+  margin: 2px 0 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 12.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.instance-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
